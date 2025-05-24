@@ -13,7 +13,15 @@ const config: StorybookConfig = {
     )}/**/*.stories.@(js|jsx|ts|tsx|mdx)`,
   ],
 
-  addons: ["@storybook/addon-essentials"],
+  addons: [
+    {
+      name: "@storybook/addon-essentials",
+      options: {
+        outline: false,
+        measure: false,
+      },
+    },
+  ],
 };
 
 export default config;

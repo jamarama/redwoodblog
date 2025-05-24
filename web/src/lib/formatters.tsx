@@ -17,7 +17,7 @@ export const formatEnum = (values: string | string[] | null | undefined) => {
   return output;
 };
 
-export const jsonDisplay = (obj: unknown) => {
+export const jsonDisplay = (obj: object) => {
   return (
     <pre>
       <code>{JSON.stringify(obj, null, 2)}</code>
@@ -25,32 +25,29 @@ export const jsonDisplay = (obj: unknown) => {
   );
 };
 
-export const truncate = (value: string | number) => {
-  let output = value?.toString() ?? "";
-
-  if (output.length > MAX_STRING_LENGTH) {
-    output = output.substring(0, MAX_STRING_LENGTH) + "...";
-  }
-
-  return output;
+export const truncate = (text?: string | number, length = 100): string => {
+  if (text == null) return "";
+  const str = String(text);
+  return str.length > length ? str.substring(0, length) + "..." : str;
 };
 
 export const jsonTruncate = (obj: unknown) => {
   return truncate(JSON.stringify(obj, null, 2));
 };
 
-export const timeTag = (dateTime?: string) => {
-  let output: string | JSX.Element = "";
+export const timeTag = (datetime?: string | Date) => {
+  if (!datetime) return "";
 
-  if (dateTime) {
-    output = (
-      <time dateTime={dateTime} title={dateTime}>
-        {new Date(dateTime).toUTCString()}
-      </time>
-    );
-  }
+  const iso = typeof datetime === "string" ? datetime : datetime.toISOString();
 
-  return output;
+  const date = new Date(iso);
+  if (isNaN(date.getTime())) return "";
+
+  return (
+    <time dateTime={iso} title={iso}>
+      {date.toUTCString()}
+    </time>
+  );
 };
 
 export const checkboxInputTag = (checked: boolean) => {

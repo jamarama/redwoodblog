@@ -8,7 +8,15 @@ import Article from "./Article";
 describe("Article", () => {
   it("renders successfully", () => {
     expect(() => {
-      render(<Article />);
+      render(
+        <Article
+          article={{
+            id: 1,
+            title: "Test Post",
+            body: "This is a test post body",
+          }}
+        />,
+      );
     }).not.toThrow();
   });
 });
