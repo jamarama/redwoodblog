@@ -7,11 +7,14 @@ interface Props {
 }
 
 const Article = ({ article }: Props) => {
+  const articleLink = routes?.article
+    ? routes.article({ id: article.id })
+    : "#";
   return (
     <article>
       <header>
         <h2>
-          <Link to={routes.article({ id: article.id })}>{article.title}</Link>
+          <Link to={articleLink}>{article.title}</Link>
         </h2>
       </header>
       <div>{article.body}</div>
